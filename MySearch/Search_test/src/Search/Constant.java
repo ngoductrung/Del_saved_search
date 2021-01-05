@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Constant {
     public static final String SIGN_UP = "";
-    public static String LOG_IN = "https://hust-fb-it4895.herokuapp.com/it4788/login";
+    public static String LOG_IN = "http://luandz.cf/it4788/login";
     public static Map<String, String> response_code = new HashMap<>() {{
         put("1000", "OK");
         put("9992", "Post is not existed");
@@ -33,5 +33,5 @@ public class Constant {
 //    public static String Get_Notification = "https://hust-fb-it4895.herokuapp.com/it4788/get_notification";
 //    public static String Get_User_Info = "https://hust-fb-it4895.herokuapp.com/it4788/get_user_info";
 //    public static String Set_User_Info = "https://hust-fb-it4895.herokuapp.com/it4788/set_user_info";
-    public static String Search = "https://hust-fb-it4895.herokuapp.com/it4788/search";
+    public static String Search = "http://luandz.cf/it4788/search";
 }

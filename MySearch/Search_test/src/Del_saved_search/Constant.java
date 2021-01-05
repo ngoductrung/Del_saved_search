@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Constant {
     public static final String SIGN_UP = "";
-    public static String LOG_IN = "http://it4895.herokuapp.com/it4895/login";
+    public static String LOG_IN = "http://luandz.cf/it4788/login";
     public static Map<String, String> response_code = new HashMap<>() {{
         put("1000", "OK");
         put("9992", "Post is not existed");
@@ -30,7 +30,7 @@ public class Constant {
         put("1012", "Limited access");
     }};
 
-    public static String DEL_SAVED_SEARCH = "http://it4895.herokuapp.com/it4895/del_saved_search" ;
+    public static String DEL_SAVED_SEARCH = "http://luandz.cf/it4788/del_saved_search" ;
 
 
 }

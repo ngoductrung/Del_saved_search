@@ -12,7 +12,7 @@ import java.sql.SQLOutput;
 public class Search {
     public static void main(String[] args) throws Exception {
         case1();
-//        case2();
+       case2();
 //        case3();
 //        case4();
 //        case5();
@@ -20,8 +20,8 @@ public class Search {
 //        case7();
     }
     public static SearchResp Search(String token, String keyword, String user_id, int index, int count) throws IOException {
-        URL url = new URL(Constant.Search + "?token=" + token + "&keyword=" + keyword + "&user_id" + user_id
-                + "&index" + index + "&count" + count);
+        URL url = new URL(Constant.Search + "?token=" + token + "&keyword=" + keyword + "&user_id=" + user_id
+                + "&index=" + index + "&count=" + count);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
@@ -74,10 +74,10 @@ public class Search {
 
     public static void case1() throws IOException {
         System.out.println("Case 1: Token is correct");
-        LoginResp loginResp = getInfoFromServer("0974732000", "1234567");
-        SearchResp searchResp = Search(loginResp.data.token, "funny", "20187270", 29, 1);
+        LoginResp loginResp = getInfoFromServer("0974732000", "123456");
+        SearchResp searchResp = Search(loginResp.data.token, "funny", "20187270", 12, 20);
         try {
-            assert "1000".equals(loginResp.data.token) : "Fail";
+            assert "1000".equals(searchResp.code) : "Fail";
             System.out.println("OK");
         }
         catch (AssertionError e) {
@@ -86,12 +86,11 @@ public class Search {
     }
     public static void case2() throws IOException {
         System.out.println("Case 2: Token is invalid" );
-        LoginResp loginResp = getInfoFromServer("0974732000", "1234567");
-        System.out.println(loginResp.data.token);
+        LoginResp loginResp = getInfoFromServer("0974732000", "123456");
         SearchResp searchResp = Search(loginResp.data.token, "funny", "20187270", 29, 1);
 
         try {
-            assert "9998".equals(loginResp.data.token) : "OK";
+            assert "9998".equals(searchResp.code) : "OK";
             System.out.println("token is invalid");
         }
         catch (AssertionError e) {
@@ -100,7 +99,7 @@ public class Search {
     }
     public static void case3() throws IOException {
         System.out.println("Case 3: Token is correct but none is returned");
-        LoginResp loginResp = getInfoFromServer("0332416592", "123456s");
+        LoginResp loginResp = getInfoFromServer("0974732000", "123456");
         SearchResp searchResp = Search(loginResp.data.token, "funny", "20187270", 29, 1);
         try {
             assert "9992".equals(loginResp.code) : "OK";
@@ -124,7 +123,7 @@ public class Search {
     }
     public static void case5() throws IOException {
         System.out.println("Case 5: Token is valid but user_id is invalid");
-        LoginResp loginResp = getInfoFromServer("0332416592", "123456s");
+        LoginResp loginResp = getInfoFromServer("0974732000", "123456");
         SearchResp searchResp = Search(loginResp.data.token, "funny", "20187270", 29, 1);
         try {
             assert "1000".equals(loginResp.code) : "Ok";
@@ -136,7 +135,7 @@ public class Search {
     }
     public static void case6() throws IOException {
         System.out.println("Case 6: Parameters are valid but keyword is null");
-        LoginResp loginResp = getInfoFromServer("0332416592", "123456s");
+        LoginResp loginResp = getInfoFromServer("0974732000", "123456");
         SearchResp searchResp = Search(loginResp.data.token, "funny", "20187270", 29, 1);
         try {
             assert "1000".equals(loginResp.code) : "OK";
@@ -148,7 +147,7 @@ public class Search {
     }
     public static void case7() throws IOException {
         System.out.println("Case 7: Token and parameters are valid but author's id returned is invalid");
-        LoginResp loginResp = getInfoFromServer("0332416592", "123456s");
+        LoginResp loginResp = getInfoFromServer("0974732000", "123456");
         SearchResp searchResp = Search(loginResp.data.token, "funny", "20187270", 29, 1);
         try {
            assert "1000".equals(loginResp.code) : "OK";

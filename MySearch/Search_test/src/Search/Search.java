@@ -20,8 +20,8 @@ public class Search {
 //        case7();
     }
     public static SearchResp Search(String token, String keyword, String user_id, int index, int count) throws IOException {
-        URL url = new URL(Constant.Search + "?token=" + token + "&keyword=" + keyword + "&user_id" + user_id
-                + "&index" + index + "&count" + count);
+        URL url = new URL(Constant.Search + "?token=" + token + "&keyword=" + keyword + "&user_id=" + user_id
+                + "&index=" + index + "&count=" + count);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);

@@ -14,9 +14,12 @@ import java.net.URL;
 public class del_saved_search {
     public static Resp Del_saved_search(String token, String search_id, String all) throws IOException {
         URL url = new URL(Constant.DEL_SAVED_SEARCH + "?token=" + token + "&search_id=" + search_id + "&all=" + all);
+        System.out.println("URL: " +url);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
+        String java_string_content= "";
+        Gson g = new Gson();
         try {
             StringBuilder content;
             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
@@ -27,14 +30,18 @@ public class del_saved_search {
                     content.append(System.lineSeparator());
                 }
             }
-            String java_string_content = content.toString();
+            java_string_content = content.toString();
             System.out.println(java_string_content);
-            Gson g = new Gson();
 
-            return g.fromJson(java_string_content, Resp.class);
+
+//            return g.fromJson(java_string_content, Resp.class);
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         finally {
             connection.disconnect();
+            return g.fromJson(java_string_content, Resp.class);
         }
     }
 
@@ -90,9 +97,9 @@ public class del_saved_search {
 public static void case1() throws IOException {
     System.out.println("Case 1: Check all ");
     LoginResp loginResp = getInfoFromServer("0974732000", "123456");
-    Resp Resp = Del_saved_search(loginResp.data.token, "12","1");
+    Resp resp = Del_saved_search(loginResp.data.token, "12","1");
     try {
-        assert ("1000".equals(loginResp.data.token));
+        assert ("1000".equals(resp.code));
         System.out.println("OK");
     }
     catch (AssertionError e) {
@@ -116,7 +123,7 @@ public static void case1() throws IOException {
         LoginResp loginResp = getInfoFromServer("0974732000", "123456");
         Resp resp = Del_saved_search(loginResp.data.token, "12","1");
         try {
-            assert "9994".equals(resp.code) : "Fail";
+            assert ("9994".equals(resp.code)) ;
             System.out.println("OK");
         }
         catch (AssertionError e) {
@@ -128,7 +135,7 @@ public static void case1() throws IOException {
         LoginResp loginResp = getInfoFromServer("0974732000", "123456");
         Resp resp = Del_saved_search(loginResp.data.token, "123","1");
         try {
-            assert "1002".equals(resp.code) : "Fail";
+            assert ("1002".equals(resp.code));
             System.out.println("OK");
         }
         catch (AssertionError e) {
@@ -137,14 +144,18 @@ public static void case1() throws IOException {
     }
     public static void case5() throws IOException {
         System.out.println("Case 5: Kiem tra nhap sai thong tin ");
-        LoginResp loginResp = getInfoFromServer("0974732000", "1234567");
-        Resp resp = Del_saved_search(loginResp.data.token, "","1");
+        LoginResp loginResp = getInfoFromServer("0974732000", "123456");
+
         try {
+            Resp resp = Del_saved_search(loginResp.data.token, "-5","1");
             assert "9997".equals(resp.code) : "Fail";
             System.out.println("OK");
         }
         catch (AssertionError e) {
             e.printStackTrace();
+        }
+        catch (Exception ei){
+            ei.printStackTrace();
         }
     }
     public static void case6() throws IOException {
@@ -162,7 +173,7 @@ public static void case1() throws IOException {
     public static void case7() throws IOException {
         System.out.println("Case 7: kiem tra bai viet co ton tai khong");
         LoginResp loginResp = getInfoFromServer("0974732000", "123456");
-        Resp resp = Del_saved_search(loginResp.data.token, "","1");
+        Resp resp = Del_saved_search(loginResp.data.token, "1","1");
         try {
             assert "9992".equals(resp.code) : "Fail";
             System.out.println("OK");
@@ -172,11 +183,11 @@ public static void case1() throws IOException {
         }
     }
     public static void case8() throws IOException {
-        System.out.println("Case 5: Kiem tra gia tri tham so ");
+        System.out.println("Case 8: Kiem tra gia tri tham so ");
         LoginResp loginResp = getInfoFromServer("0974732000", "123456");
-        Resp resp = Del_saved_search(loginResp.data.token, "","1");
+        Resp resp = Del_saved_search(loginResp.data.token, "123","1");
         try {
-            assert "1004".equals(resp.code) : "Fail";
+            assert ("1004".equals(resp.code));
             System.out.println("OK");
         }
         catch (AssertionError e) {
@@ -186,7 +197,12 @@ public static void case1() throws IOException {
 
     public static void main(String[] args) throws IOException {
 //        case1();
-//        case6();
+//        case2();
 //        case3();
+//        case4();
+        case5();
+//        case6();
+//        case7();
+//        case8();
     }
 }
